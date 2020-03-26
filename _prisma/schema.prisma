@@ -1,0 +1,26 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Weather {
+  id               Int    @default(autoincrement()) @id
+  observation_time String
+  temperature      Float
+  weather_code     Float
+  wind_speed       Float
+  wind_degree      Float
+  wind_dir         String
+  pressure         Float
+  precip           Float
+  humidity         Float
+  cloudcover       Float
+  feelslike        Float
+  uv_index         Float
+  visibility       Float
+  is_day           String
+}

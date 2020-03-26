@@ -1,5 +1,15 @@
 import { gretch } from "gretchen";
 
+export default async function weatherstack(
+  query: string
+): Promise<Success["current"]> {
+  const accessKey = process.env.WEATHERSTACK_API_KEY;
+  const apiEndpoint = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${query}`;
+  const response = await gretch<Success, Error>(apiEndpoint).json();
+  if (response.error) throw new Error(response.error.error.info);
+  return response.data.current;
+}
+
 type Success = {
   request: {
     type: string;
@@ -46,13 +56,3 @@ type Error = {
     info: string;
   };
 };
-
-export default async function weatherstack(
-  query: string
-): Promise<Success["current"]> {
-  const accessKey = process.env.WEATHERSTACK_API_KEY;
-  const apiEndpoint = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${query}`;
-  const response = await gretch<Success, Error>(apiEndpoint).json();
-  if (response.error) throw new Error(response.error.error.info);
-  return response.data.current;
-}
