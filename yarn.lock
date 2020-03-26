@@ -775,6 +775,11 @@ graphql@14.6.0, graphql@^14.5.3:
   dependencies:
     iterall "^1.2.2"
 
+gretchen@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gretchen/-/gretchen-1.0.0.tgz#60d29205b0f4b2497f261cc7c5f681ef640b1a27"
+  integrity sha512-b1LP5bc0d/UcKmX1gKGT7uc17FFFla1TxcMMFt8MQqS96l/y7m3/HQ8K6np+W3FLCkt+8JFuqHzNb/hlhEQ++A==
+
 has-symbols@^1.0.0, has-symbols@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.1.tgz#9f5214758a44196c406d9bd76cebf81ec2dd31e8"

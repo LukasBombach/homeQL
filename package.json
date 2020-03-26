@@ -1,12 +1,18 @@
 {
-  "name": "@homeql/monorepo",
+  "name": "@homeql/server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.ts",
   "repository": "https://github.com/LukasBombach/homeQL",
   "author": "Lukas Bombach <lukas.bombach@googlemail.com>",
   "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ]
+  "scripts": {
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "apollo-server": "2.11.0",
+    "graphql": "14.6.0",
+    "gretchen": "1.0.0",
+    "ts-node": "8.8.1",
+    "typescript": "3.8.3"
+  }
 }
