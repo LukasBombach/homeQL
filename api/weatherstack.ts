@@ -1,15 +1,27 @@
 import fetch from "isomorphic-unfetch";
+import cache from "../lib/cache";
 import env from "../lib/env";
 
 export default async function weatherstack(
   query: string
 ): Promise<Response["current"]> {
-  const accessKey = env("WEATHERSTACK_API_KEY");
   const encodedQuery = encodeURIComponent(query);
-  const apiEndpoint = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${encodedQuery}`;
-  const response = await fetch(apiEndpoint);
-  const data: Response = await response.json();
+  const data = await fetchWeatherstack(encodedQuery);
   return data.current;
+}
+
+function fetchWeatherstack(query: string): Promise<Response> {
+  const accessKey = env("WEATHERSTACK_API_KEY");
+  const apiEndpoint = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${query}`;
+  const id = `weatherstack-${query}`;
+  return cache.wrap(
+    id,
+    async () => {
+      const response = await fetch(apiEndpoint);
+      return await response.json();
+    },
+    { ttl: 10 }
+  );
 }
 
 type Response = {
