@@ -1,2 +1,0 @@
-# homeQL
-Smart Home GraphQL
