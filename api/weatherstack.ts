@@ -20,7 +20,7 @@ function fetchWeatherstack(query: string): Promise<Response> {
       const response = await fetch(apiEndpoint);
       return await response.json();
     },
-    { ttl: 10 }
+    { ttl: 60 * 30 }
   );
 }
 
