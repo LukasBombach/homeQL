@@ -1,19 +1,33 @@
 import { ApolloServer, gql } from "apollo-server-micro";
+import weatherstack from "../../api/weatherstack";
 
 const typeDefs = gql`
   type Query {
-    users: [User!]!
+    weather: Weather!
   }
-  type User {
-    name: String
+  type Weather {
+    observation_time: String!
+    temperature: Float!
+    weather_code: Float!
+    weather_icons: [String!]!
+    weather_descriptions: [String!]!
+    wind_speed: Float!
+    wind_degree: Float!
+    wind_dir: String!
+    pressure: Float!
+    precip: Float!
+    humidity: Float!
+    cloudcover: Float!
+    feelslike: Float!
+    uv_index: Float!
+    visibility: Float!
+    is_day: String!
   }
 `;
 
 const resolvers = {
   Query: {
-    users(parent, args, context) {
-      return [{ name: "Nextjs" }];
-    }
+    weather: async () => await weatherstack("Berlin, Germany")
   }
 };
 
