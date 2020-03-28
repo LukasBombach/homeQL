@@ -10,18 +10,20 @@ export default async function weatherstack(
   return data.current;
 }
 
-function fetchWeatherstack(query: string): Promise<Response> {
+async function fetchWeatherstack(query: string): Promise<Response> {
   const accessKey = env("WEATHERSTACK_API_KEY");
   const apiEndpoint = `http://api.weatherstack.com/current?access_key=${accessKey}&query=${query}`;
   const id = `weatherstack-${query}`;
-  return cache.wrap(
-    id,
-    async () => {
-      const response = await fetch(apiEndpoint);
-      return await response.json();
-    },
-    { ttl: 60 * 30 }
-  );
+  return await fetchCached(id, apiEndpoint);
+}
+
+async function fetchCached(id: string, url: string) {
+  return await cache.wrap(id, () => fetchJson(url), { ttl: 60 * 30 });
+}
+
+async function fetchJson(url: string) {
+  const response = await fetch(url);
+  return await response.json();
 }
 
 type Response = {
