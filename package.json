@@ -20,6 +20,7 @@
     "graphql": "14.6.0",
     "graphql-tag": "2.10.3",
     "gretchen": "1.0.0",
+    "imap-simple": "5.0.0",
     "isomorphic-unfetch": "3.0.0",
     "next": "latest",
     "next-apollo": "3.1.10",
