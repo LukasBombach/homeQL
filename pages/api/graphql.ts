@@ -1,42 +1,22 @@
-import { ApolloServer, gql } from "apollo-server-micro";
-import weatherstack from "../../api/weatherstack";
+import { ApolloServer } from "apollo-server-micro";
+import { merge } from "lodash";
+import * as weather from "../../api/weather";
 
-const typeDefs = gql`
+const Query = `
   type Query {
-    weather: Weather!
-  }
-  type Weather {
-    observation_time: String!
-    temperature: Float!
-    weather_code: Float!
-    weather_icons: [String!]!
-    weather_descriptions: [String!]!
-    wind_speed: Float!
-    wind_degree: Float!
-    wind_dir: String!
-    pressure: Float!
-    precip: Float!
-    humidity: Float!
-    cloudcover: Float!
-    feelslike: Float!
-    uv_index: Float!
-    visibility: Float!
-    is_day: String!
+    _empty: String
   }
 `;
 
-const resolvers = {
-  Query: {
-    weather: async () => await weatherstack("Berlin, Germany")
-  }
-};
+const typeDefs = [Query, weather.typeDefs];
+const resolvers = merge({}, weather.resolvers);
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
 export const config = {
   api: {
-    bodyParser: false
-  }
+    bodyParser: false,
+  },
 };
 
 export default apolloServer.createHandler({ path: "/api/graphql" });

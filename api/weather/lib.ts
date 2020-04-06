@@ -21,6 +21,7 @@ async function fetchCached(id: string, url: string) {
 }
 
 async function fetchJson(url: string) {
+  console.log("loading weather");
   const response = await fetch(url);
   return await response.json();
 }

@@ -1,7 +1,10 @@
-import { gql } from "apollo-server-micro";
 import getWeather from "./lib";
 
-export const typeDefs = gql`
+export const typeDefs = `
+  extend type Query {
+    weather(query: String!): Weather
+  }
+
   type Weather {
     observation_time: String!
     temperature: Float!
@@ -22,10 +25,20 @@ export const typeDefs = gql`
   }
 `;
 
-export async function resolve(location: string) {
-  return await getWeather(location);
-}
+export const resolvers = {
+  Query: {
+    weather: async (source, { query }) => {
+      if (typeof query === "undefined")
+        throw new Error("Missing Query Parameter");
+      if (typeof query !== "string")
+        throw new Error("Query Parameter must be a string");
+      return getWeather(query);
+    },
+  },
+};
 
+/* 
 export async function subscribe(listener: (location: string) => void) {}
 
 export async function ubsubscribe(listener: (location: string) => void) {}
+ */
