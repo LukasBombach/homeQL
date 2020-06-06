@@ -13,7 +13,7 @@
     "abortcontroller-polyfill": "1.4.0",
     "apollo-boost": "0.4.7",
     "apollo-client": "2.6.8",
-    "apollo-server-micro": "2.6.7",
+    "apollo-server-micro": "2.14.2",
     "aws-sdk": "2.653.0",
     "cache-manager": "3.2.1",
     "cache-manager-fs": "1.0.8",
